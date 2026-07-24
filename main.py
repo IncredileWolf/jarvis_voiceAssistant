@@ -1,18 +1,11 @@
-from config import VOICE_RATE
+from core.logger import setup_logger
 from core.speaker import Speaker
-import logging
-
 
 def main():
 
-    speaker = Speaker(rate=VOICE_RATE)
-
-    speaker.speak("Hello Rohit")
-
-    speaker.speak("Welcome to Jarvis version two.")
-
-    speaker.speak("Let's build something amazing.")
-
+    setup_logger()
+    speaker = Speaker()
+    speaker.speak("Hello, I am Jarvis, your voice assistant. How can I help you today?")
 
 if __name__ == "__main__":
     main()
