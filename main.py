@@ -1,31 +1,14 @@
 from core.logger import setup_logger
-from core.speaker import Speaker
-from core.speech import SpeechRecognizer
+from core.assistant import Assistant
 
 
 def main():
 
     setup_logger()
 
-    speaker = Speaker()
+    assistant = Assistant()
 
-    listener = SpeechRecognizer()
-
-    speaker.speak("Hello Rohit. Jarvis is ready.")
-
-    while True:
-
-        text = listener.listen()
-
-        if text:
-
-            print(f"\nYou said : {text}")
-
-            if text == "exit":
-
-                speaker.speak("Goodbye!")
-
-                break
+    assistant.start()
 
 
 if __name__ == "__main__":
