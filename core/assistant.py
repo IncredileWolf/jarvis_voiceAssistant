@@ -45,7 +45,9 @@ class Assistant:
 
     def process_command(self, command):
 
-        if self.router.execute(command):
-            self.speaker.speak("Done.")
+        response = self.router.execute(command)
+
+        if response:
+            self.speaker.speak(response)
         else:
-            self.speaker.speak("Sorry,I don't understand that command.")
+            self.speaker.speak("Sorry, I don't understand that command.")
