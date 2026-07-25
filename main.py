@@ -1,11 +1,15 @@
 from core.logger import setup_logger
-from core.speaker import Speaker
+from core.assistant import Assistant
+
 
 def main():
 
     setup_logger()
-    speaker = Speaker()
-    speaker.speak("Hello, I am Jarvis, your voice assistant. How can I help you today?")
+
+    assistant = Assistant()
+
+    assistant.start()
+
 
 if __name__ == "__main__":
     main()
