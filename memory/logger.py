@@ -1,18 +1,37 @@
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 
 class ConversationLogger:
 
     def __init__(self):
-        self.file = Path("logs/conversation.log")
-        self.file.parent.mkdir(exist_ok=True)
 
-    def log(self, role, message):
+        Path("logs").mkdir(
+            exist_ok=True,
+        )
 
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.file = Path(
+            "logs/conversation.log"
+        )
 
-        with open(self.file, "a", encoding="utf-8") as f:
-            f.write(
-                f"[{timestamp}] {role}: {message}\n"
+    def log(
+        self,
+        role,
+        message,
+    ):
+
+        timestamp = datetime.now().strftime(
+            "%Y-%m-%d %H:%M:%S"
+        )
+
+        with open(
+            self.file,
+            "a",
+            encoding="utf-8",
+        ) as file:
+
+            file.write(
+                f"[{timestamp}] "
+                f"{role}: "
+                f"{message}\n"
             )

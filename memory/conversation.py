@@ -1,32 +1,45 @@
 from collections import deque
 
+from config import MAX_HISTORY
+
 
 class ConversationMemory:
     """
     Stores recent conversation history.
     """
 
-    def __init__(self, max_messages=10):
-        self.messages = deque(maxlen=max_messages)
+    def __init__(self):
 
-    def add(self, role: str, content: str):
-        self.messages.append({
-            "role": role,
-            "content": content
-        })
+        self.messages = deque(
+            maxlen=MAX_HISTORY,
+        )
 
-    def build_context(self) -> str:
-        """
-        Converts conversation history into a prompt.
-        """
+    def add(
+        self,
+        role,
+        content,
+    ):
+
+        self.messages.append(
+            {
+                "role": role,
+                "content": content,
+            }
+        )
+
+    def build_context(self):
 
         context = ""
 
         for message in self.messages:
-            role = message["role"].capitalize()
-            context += f"{role}: {message['content']}\n"
+
+            context += (
+                f"{message['role'].capitalize()}: "
+                f"{message['content']}\n"
+            )
 
         return context
 
     def clear(self):
+
         self.messages.clear()

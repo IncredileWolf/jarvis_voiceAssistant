@@ -41,3 +41,10 @@ LOG_LEVEL = "INFO"
 # ==========================
 
 DEFAULT_SEARCH_ENGINE = "google"
+
+# ==========================
+# AI
+# ==========================
+
+AI_PROVIDER = "ollama"
+AI_PROVIDER = "gemini"
