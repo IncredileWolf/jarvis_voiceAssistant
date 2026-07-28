@@ -1,62 +1,75 @@
 import speech_recognition as sr
-import logging
+
+from config import (
+    LISTEN_TIMEOUT,
+    PHRASE_TIME_LIMIT,
+    AMBIENT_DURATION,
+)
+
+from core.logger import get_logger
+
+logger = get_logger(__name__)
 
 
 class SpeechRecognizer:
     """
-    Handles microphone input and converts speech to text.
+    Handles microphone input and speech recognition.
     """
 
     def __init__(self):
-        self.recognizer = sr.Recognizer()
 
-        # Makes recognition less sensitive to background noise
-        self.recognizer.energy_threshold = 300
-        self.recognizer.pause_threshold = 0.8
-        self.recognizer.dynamic_energy_threshold = True
+        self.recognizer = sr.Recognizer()
 
     def listen(self):
 
-        with sr.Microphone() as source:
+        try:
 
-            print("\n🎤 Listening...")
-            logging.info("Listening...")
+            with sr.Microphone() as source:
 
-            # Adjust to surrounding noise
-            self.recognizer.adjust_for_ambient_noise(source, duration=1)
+                print("\n🎤 Listening...")
 
-            try:
+                logger.info("Listening...")
+
+                self.recognizer.adjust_for_ambient_noise(
+                    source,
+                    duration=AMBIENT_DURATION,
+                )
 
                 audio = self.recognizer.listen(
                     source,
-                    timeout=5,
-                    phrase_time_limit=10
+                    timeout=LISTEN_TIMEOUT,
+                    phrase_time_limit=PHRASE_TIME_LIMIT,
                 )
 
-                print("🔍 Recognizing...")
+            print("🔍 Recognizing...")
 
-                text = self.recognizer.recognize_google(audio)
+            command = self.recognizer.recognize_google(audio)
 
-                logging.info(f"Recognized: {text}")
+            logger.info("Recognized: %s", command)
 
-                return text.lower()
+            return command.lower()
 
-            except sr.WaitTimeoutError:
+        except sr.WaitTimeoutError:
 
-                print("⌛ No speech detected.")
+            print("⌛ No speech detected.")
 
-                return None
+            return None
 
-            except sr.UnknownValueError:
+        except sr.UnknownValueError:
 
-                print("❌ Could not understand.")
+            print("❌ Could not understand.")
 
-                return None
+            return None
 
-            except sr.RequestError as e:
+        except sr.RequestError:
 
-                print("Google API Error")
+            print("❌ Google Speech API unavailable.")
 
-                logging.error(e)
+            return None
 
-                return None
+        except Exception as e:
+
+            logger.exception(e)
+
+            return None
+        
