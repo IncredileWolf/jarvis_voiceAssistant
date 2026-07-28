@@ -10,12 +10,12 @@ class WebsiteCommands:
 
         command = command.lower()
 
-        for name, url in WEBSITES.items():
+        for website, url in WEBSITES.items():
 
-            if name in command:
+            if website in command:
 
                 webbrowser.open(url)
 
-                return f"Opening {name}."
+                return f"Opening {website.title()}."
 
         return None

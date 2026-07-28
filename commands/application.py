@@ -14,8 +14,18 @@ class ApplicationCommands:
 
             if app in command:
 
-                subprocess.Popen(executable)
+                try:
 
-                return f"Opening {app}."
+                    subprocess.Popen(executable)
+
+                    return f"Opening {app.title()}."
+
+                except FileNotFoundError:
+
+                    return f"{app.title()} is not installed."
+
+                except Exception as e:
+
+                    return f"Unable to open {app}. {e}"
 
         return None
