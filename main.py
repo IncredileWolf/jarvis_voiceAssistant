@@ -1,13 +1,12 @@
-from core.logger import setup_logger
+"""
+Entry point of the Jarvis Voice Assistant.
+"""
+
 from core.assistant import Assistant
 
 
 def main():
-
-    setup_logger()
-
     assistant = Assistant()
-
     assistant.start()
 
 

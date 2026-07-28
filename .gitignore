@@ -1,16 +1,29 @@
-# Virtual environment
-venv312/
-
-# Python cache
+# Python
 __pycache__/
 *.py[cod]
+*.pyo
 
-# Environment variables
+# Virtual Environment
+venv/
+venv312/
+
+# Environment
 .env
 
-# VS Code settings (optional)
+# Logs
+logs/*.log
+
+# VS Code
 .vscode/
 
-# OS files
+# PyCharm
+.idea/
+
+# OS Files
 .DS_Store
 Thumbs.db
+
+# Build
+dist/
+build/
+*.egg-info/
